@@ -12,5 +12,17 @@ angular.module('myApp.view1', ['ngRoute', 'CornerCouch'])
 .controller('View1Ctrl', ['$scope', '$rootScope', function($scope, $rootScope) {
   $scope.feedDb = $rootScope.server.getDB('geekjuke');
   $scope.feedDb.query("geekjuke", "feeds", { include_docs: true });
-  console.log($scope.feedDb);
+  $scope.newentry = $scope.feedDb.newDoc();
+
+  function setError(data, status) {
+    $scope.errordata = { "status": status, "data": data };
+  }
+
+  $scope.submitEntry = function() {
+    $scope.newentry.save().success( function() {
+      delete $scope.errordata;
+      $scope.newentry = $scope.feedDb.newDoc();
+      $scope.feedDb.query("geekjuke", "feeds", { include_docs: true });
+    });
+  };
 }]);

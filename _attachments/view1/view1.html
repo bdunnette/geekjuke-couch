@@ -1,3 +1,14 @@
+<div class="alert alert-error" ng-show="errordata">{{ errordata | json }}</div>
+<form name="formNewEntry" class="offset1 span9" ng-submit="submitEntry()">
+  <fieldset>
+    <legend>New audio feed</legend>
+    <label>Feed URL</label>
+    <input type="url" class="span4" ng-model="newentry.feedUrl" required>
+  </fieldset>
+  <label>Submit your entry here</label>
+  <button class="submit" ng-disabled="formNewEntry.$invalid">Submit</button>
+</form>
+
 <ul>
   <li ng-repeat="feed in feedDb.rows">{{feed.doc.title||feed.key}}</li>
 </ul>
